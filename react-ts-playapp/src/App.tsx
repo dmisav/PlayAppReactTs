@@ -3,15 +3,44 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import PlayGoal from "./components/PlayGoal.tsx"
+import Header from "./components/Header.tsx";
 
+type PlayGoal = {
+    title: string;
+    description: string;
+    id: number;
+}
 function App() {
-  const [count, setCount] = useState(0)
-
+    const [goals, setGoals] = useState<PlayGoal[]>([])    
+    const [count, setCount] = useState(0)
+  function addGoalHandler(){
+      setGoals(prevGoals => {
+          const newGoal: PlayGoal = {
+              id: Math.random(),
+              title: 'Learn React + TS',
+              description: 'Learn it in depth!'
+          };
+          return [...prevGoals, newGoal]
+      } );
+  }
   return (
     <>
       <div>
-          <PlayGoal title="SomeRandText" description="SomeRandDesc" />
-          <PlayGoal></PlayGoal>
+          <Header image={{src: reactLogo, alt: "A list of goals"}}>
+              <h1> Our App Goals </h1>
+          </Header>
+          <button onClick={addGoalHandler}>Add Goal</button>
+          <ul>
+          {goals.map((goal) => (
+              <li key={goal.id}>
+                  <PlayGoal title={goal.title}>
+                      <p>{goal.description}</p>
+                  </PlayGoal>
+              </li>
+              
+              ) 
+          )}
+          </ul>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
