@@ -22,7 +22,12 @@ function App() {
           };
           return [...prevGoals, newGoal]
       } );
+  } 
+  
+  function deleteGoalHandler(id: number){
+      setGoals(prevGoals => prevGoals.filter((goal) => goal.id !== id));
   }
+  
   return (
     <>
       <div>
@@ -30,7 +35,7 @@ function App() {
               <h1> Our App Goals </h1>
           </Header>
           <button onClick={addGoalHandler}>Add Goal</button>
-          <PlayGoalList goals={goals}></PlayGoalList>
+          <PlayGoalList goals={goals} onDeleteGoal={deleteGoalHandler}></PlayGoalList>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
