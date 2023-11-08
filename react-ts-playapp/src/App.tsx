@@ -2,10 +2,10 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import PlayGoal from "./components/PlayGoal.tsx"
 import Header from "./components/Header.tsx";
+import PlayGoalList from "./components/PlayGoalList.tsx";
 
-type PlayGoal = {
+ export type PlayGoal = {
     title: string;
     description: string;
     id: number;
@@ -30,17 +30,7 @@ function App() {
               <h1> Our App Goals </h1>
           </Header>
           <button onClick={addGoalHandler}>Add Goal</button>
-          <ul>
-          {goals.map((goal) => (
-              <li key={goal.id}>
-                  <PlayGoal title={goal.title}>
-                      <p>{goal.description}</p>
-                  </PlayGoal>
-              </li>
-              
-              ) 
-          )}
-          </ul>
+          <PlayGoalList goals={goals}></PlayGoalList>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
