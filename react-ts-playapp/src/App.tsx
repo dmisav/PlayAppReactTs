@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Header from "./components/Header.tsx";
 import PlayGoalList from "./components/PlayGoalList.tsx";
+import NewGoal from "./components/NewGoal.tsx";
 
  export type PlayGoal = {
     title: string;
@@ -13,7 +14,18 @@ import PlayGoalList from "./components/PlayGoalList.tsx";
 function App() {
     const [goals, setGoals] = useState<PlayGoal[]>([])    
     const [count, setCount] = useState(0)
-  function addGoalHandler(){
+
+    function submitoalHandler(goal: string, summary: string){
+        setGoals(prevGoals => {
+            const newGoal: PlayGoal = {
+                id: Math.random(),
+                title: goal,
+                description: summary,
+            };
+            return [...prevGoals, newGoal]
+        } );
+    }
+    function addGoalHandler(){
       setGoals(prevGoals => {
           const newGoal: PlayGoal = {
               id: Math.random(),
@@ -36,6 +48,7 @@ function App() {
           </Header>
           <button onClick={addGoalHandler}>Add Goal</button>
           <PlayGoalList goals={goals} onDeleteGoal={deleteGoalHandler}></PlayGoalList>
+          <NewGoal onAddGoal={submitoalHandler}></NewGoal>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
